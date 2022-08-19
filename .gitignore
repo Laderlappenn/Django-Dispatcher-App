@@ -1,0 +1,12 @@
+.env
+__pycache__/
+website/__pycache__
+dispatcher/__pycache__/
+dispatcher/migrations/__pycache__/
+
+*.pyc
+*~
+venv
+db.sqlite3
+/static
+.idea/

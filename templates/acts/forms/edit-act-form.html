@@ -1,0 +1,8 @@
+<form hx-put="http://127.0.0.1:8000/acts/{{act.id}}/edit/save" hx-targer="#act-details">
+    {% csrf_token %}
+
+    {{form.as_ul}}
+
+    <input class="btn btn-primary" type="submit"/>
+
+</form>

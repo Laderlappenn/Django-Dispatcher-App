@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+
+  <!-- HTMX -->
+  <script src="https://unpkg.com/htmx.org@1.6.1"></script>
+
+
+
+</head>
+
+<body>
+
+  {% block content %}
+  act
+  <br>
+  <br>
+
+  <div class="container mt-4">
+  <div id="act-details">
+    {% include 'acts/details/act-detail.html' %}
+  </div>
+
+
+  {% if request.user.type == 'DISPATCHER' %}
+  <button hx-get="return" hx-target="this" hx-swap="outerHTML">
+    Вернуть заявку
+  </button>
+  <button hx-get="accept" hx-target="this" hx-swap="outerHTML">
+    Принять заявку
+  </button>
+
+  <br>
+  <br>
+
+  <button id="date-detail" hx-get="date" hx-target="this" hx-swap="outerHTML">
+    Выставить дату
+  </button>
+
+  {% else %}
+
+  {% endif %}
+
+
+  <script>
+    document.body.addEventListener('htmx:configRequest', (event) => {
+      event.detail.headers['X-CSRFToken'] = '{{ csrf_token }}';
+    })
+  </script>
+
+  </div>
+  {% endblock %}
+
+
+
+</body>
+
+
+</html>

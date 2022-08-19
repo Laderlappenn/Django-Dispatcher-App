@@ -1,0 +1,48 @@
+<table>
+    <thead>
+      <tr>
+        <th>User name</th>
+        <th>Title</th>
+        <th>Adress</th>
+        <th>Act type</th>
+        <th>Act text</th>
+        <th>Date created</th>
+        <th>Date updated</th>
+         <th>Act processing</th>
+         <th>Do untill</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>{{act.user}}</td>
+        <td>{{act.title}}</td>
+        <td>{{act.adress}}</td>
+        <td>{{act.act_type}}</td>
+        <td>{{act.text}}</td>
+        <td>{{act.date_created}}</td>
+        <td>{{act.date_updated}}</td>
+        <td>{{act.act_processing}}</td>
+        {% if act.do_until == None %}
+        <td>No date</td>
+        {% else %}
+        <td>{{act.do_until}}</td>
+        {% endif %}
+
+      </tr>
+
+    </tbody>
+  </table>
+  <br>
+  {% if act.image.url != None %}
+  <img src="{{ act.image.url }}" class="image-detail"><br>
+  {% endif %}
+  <br>
+  {% if act.file.url != None %}
+  <a href="{{ act.file.url }}" class="file-detail">{{ act.file.name }}</a><br>
+  {% endif %}
+  <br>
+<button class="btn btn-primary"
+    hx-get="{% url 'acts:act-edit-form' act.id %}"
+    hx-target="#act-details">Click To Edit</button>
+
+    
