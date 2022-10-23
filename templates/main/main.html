@@ -1,14 +1,17 @@
 <!DOCTYPE html>
+{% extends "../base.html" %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
+
+  {% block content %}
  main
 <br>
 
-
+Posts
 {% for obj in page_obj %}
 <br>
 <table id="body">
@@ -28,7 +31,7 @@
         <td>{{obj.text}}</td>
         <td>{{obj.date_created}}</td>
         <td>{{obj.date_updated}}</td>      
-        <td><a href="http://127.0.0.1:8000/act/{{obj.id}}">Смотреть пост</a></td>
+        <td><a href="http://127.0.0.1:8000/post/{{obj.id}}">Смотреть пост</a></td>
       </tr>
     </tbody>
   </table>
@@ -46,6 +49,6 @@ Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
 <a href="?page={{ page_obj.paginator.num_pages }}">Last &raquo;</a>
 {% endif %}
 
-
+{% endblock %}
 </body>
 </html>

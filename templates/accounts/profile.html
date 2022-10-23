@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-{% extends "dispatcher/base.html" %}
+{% extends "../base.html" %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -11,7 +11,11 @@
 
 {% block content %}
 
-<h4>Профиль</h4>
+<h4>Профиль</h4><br>
+<p>username: {{ profile.username }}</p>
+<p>admin: {{ profile.is_admin }}</p>
+<p>type: {{ profile.type }}</p>
+
 
 {% endblock %}
 

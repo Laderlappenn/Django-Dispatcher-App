@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-{% extends "dispatcher/base.html" %}
+{% extends "../base.html" %}
 
 <html lang="en">
 <head>
@@ -27,7 +27,7 @@
   {% endif %}
 {% endif %}
 
-<form method="post" action="{% url 'dispatcher:login' %}">
+<form method="post" action="{% url 'accounts:login' %}">
 {% csrf_token %}
 <table>
 
