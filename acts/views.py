@@ -5,12 +5,14 @@ from django.contrib.auth.decorators import login_required
 from .models import Act
 from .forms import ActForm
 
+
 @login_required
 def acts(request):
     if request.user.type == 'DISPATCHER':
         queryset = Act.objects.select_related('user').all().order_by('-date_updated')
     else:
-        queryset = Act.objects.select_related('user').filter(user_id=request.user.id) # request.session.get('_auth_user_id')
+        queryset = Act.objects.select_related('user').filter(
+            user_id=request.user.id)  # request.session.get('_auth_user_id')
     paginator = Paginator(queryset, 10)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
@@ -33,6 +35,7 @@ def create_act(request):
         else:
             return render(request, 'acts/create_post.html', {'form': form})
 
+
 @login_required
 def act(request, pkey):
     queryset = get_object_or_404(Act, pk=pkey)
@@ -49,13 +52,33 @@ def act_search(request):
             search = request.POST['search']
             acts = Act.objects.all()
             queryset = [act for act in acts if (
-                        (search.lower() in act.title.lower())
-                        or
-                        (search.lower() in act.adress.lower())
-                        or
-                        (search.lower() in act.text.lower()))
+                    (search.lower() in act.title.lower())
+                    or
+                    (search.lower() in act.adress.lower())
+                    or
+                    (search.lower() in act.text.lower()))
                         ]
-            return render(request,'acts/details/act-search.html', {'status': queryset})
+
+            paginator = Paginator(queryset, 10)
+            page_obj = paginator.get_page(None)
+            return render(request, 'acts/details/act-search.html', {'page_obj': page_obj, 'search': search})
+
+        if request.method == 'GET':
+            search = request.GET['search']
+            acts = Act.objects.all()
+            queryset = [act for act in acts if (
+                    (search.lower() in act.title.lower())
+                    or
+                    (search.lower() in act.adress.lower())
+                    or
+                    (search.lower() in act.text.lower()))
+                        ]
+
+            paginator = Paginator(queryset, 10)
+            page_number = request.GET.get('page')
+            page_obj = paginator.get_page(page_number)
+            return render(request, 'acts/details/act-search.html', {'page_obj': page_obj, 'search': search})
+
 
 def return_act(request, actid):
     if request.user.is_staff == 1:
@@ -63,18 +86,20 @@ def return_act(request, actid):
 
         return render(request, 'dispatcher/details/return-detail.html')
 
+
 def accept_act(request, actid):
     if request.user.is_staff == 1:
         Act.objects.filter(id=actid).update(act_processing='Заявки принята')
         return render(request, 'dispatcher/details/accept-detail.html')
+
 
 def set_date(request, actid):
     if request.user.is_staff == 1:
         if request.method == 'GET':
             queryset = Act.objects.filter(id=actid).values_list('do_until', flat=True).first()
 
-            form = ActSetDateForm()#instance=queryset
-            return render(request, 'dispatcher/forms/date-form.html', {'form': form,'act':actid, 'date':queryset})
+            form = ActSetDateForm()  # instance=queryset
+            return render(request, 'dispatcher/forms/date-form.html', {'form': form, 'act': actid, 'date': queryset})
         if request.method == 'PUT':
             # optimize query
             queryset = get_object_or_404(Act, id=actid)

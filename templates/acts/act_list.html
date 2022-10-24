@@ -37,7 +37,7 @@
 
 {% if request.user.type == "DISPATCHER" %}
 
-<form hx-post="search" hx-target="#acts" hx-swap="outerHTML">
+<form hx-post="search" hx-target="#body" hx-swap="outerHTML">
     {% csrf_token %}
     <input class="form-control me-2" type="search" placeholder="Поиск" aria-label="Поиск" name="search">
     <input class="btn btn-primary" type="submit" value="Найти"/>
