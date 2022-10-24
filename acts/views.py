@@ -8,7 +8,7 @@ from .forms import ActForm
 @login_required
 def acts(request):
     if request.user.type == 'DISPATCHER':
-        queryset = Act.objects.select_related('user').all()
+        queryset = Act.objects.select_related('user').all().order_by('-date_updated')
     else:
         queryset = Act.objects.select_related('user').filter(user_id=request.user.id) # request.session.get('_auth_user_id')
     paginator = Paginator(queryset, 10)

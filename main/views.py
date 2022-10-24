@@ -21,7 +21,7 @@ def create_post(request):
 
     if request.method == 'GET':
         form = PostForm()
-        return render(request, 'create_post.html', {'form':form})
+        return render(request, 'main/create_post.html', {'form':form})
 
     elif request.method == 'POST':
         form = PostForm(request.POST)
@@ -31,7 +31,7 @@ def create_post(request):
             form.save()
             return HttpResponseRedirect('../')
         else:
-            return render(request, 'create_post.html', {'form': form})
+            return render(request, 'main/create_post.html', {'form': form})
 
 
 def post(request, pkey):

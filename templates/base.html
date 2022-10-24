@@ -47,6 +47,7 @@ body {
   
 <div class="topnav">
   <a class="active" href="http://127.0.0.1:8000">Home</a>
+  <a href="{% url 'main:create_post' %}">Создать пост</a>
   <a href="{% url 'acts:create_act' %}">Создать заявку</a>
   <a href="{% url 'acts:acts' %}">Смотреть заявки</a>
   <a href="{% url 'accounts:profile' %}">Профиль</a>

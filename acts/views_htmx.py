@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from django.utils import timezone
-from django.http import  QueryDict
+from django.http import QueryDict
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 
@@ -33,7 +33,6 @@ def act_edit(request, pkey):
                 return render(request, 'acts/forms/edit-act-form.html', {'form': form})
 
 
-
 def act_status(request):
     if request.user.type == 'DISPATCHER':
         status = request.GET.get('status')
@@ -52,7 +51,7 @@ def act_status(request):
             case _:
                 queryset = Act.objects.all().order_by('-date_updated')
 
-        # paginator = Paginator(queryset, 15)
-        # page_number = request.GET.get('page')
-        # page_obj = paginator.get_page(page_number)
-        return render(request, 'acts/details/act-status.html', {'page_obj': queryset})
+        paginator = Paginator(queryset, 10)
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+        return render(request, 'acts/details/act-status.html', {'page_obj': page_obj, 'status': status})

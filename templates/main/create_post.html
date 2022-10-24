@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% extends "../base.html" %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -7,6 +8,7 @@
     <title>Create Post</title>
 </head>
 <body>
+    {% block content %}
     <form method="post" action="{% url 'main:create_post' %}">
         {% csrf_token %}
     
@@ -17,6 +19,6 @@
 
     </form>
 
-
+    {% endblock %}
 </body>
 </html>
