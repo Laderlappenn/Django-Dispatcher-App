@@ -56,9 +56,8 @@ body {
   <a href="{% url 'accounts:register' %}">Регистрация</a>
   <a href="{% url 'accounts:login' %}">Вход</a>
   {% endif %}
-  <a href="">Отчёты</a>
-  <a href="#">Сотрудники</a>
-  <a href="">Телефония</a>
+  <a href="{% url 'reports:users' %}">Пользователи</a>
+  <a href="#">Отчёты</a>
   <a href="">Объекты</a>
 
 

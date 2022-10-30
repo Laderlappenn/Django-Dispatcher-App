@@ -41,8 +41,8 @@
   <a href="{{ act.file.url }}" class="file-detail">{{ act.file.name }}</a><br>
   {% endif %}
   <br>
-<button class="btn btn-primary"
-    hx-get="{% url 'acts:act-edit-form' act.id %}"
+<button class="btn btn-primary"   
+    hx-get="{% url 'acts:act-edit-form' pkey=act.id %}"
     hx-target="#act-details">Click To Edit</button>
 
     

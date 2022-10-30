@@ -1,9 +1,9 @@
 from django.shortcuts import render, HttpResponseRedirect, get_object_or_404
 from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required
-
+from django.http import QueryDict
 from .models import Act
-from .forms import ActForm
+from .forms import ActForm, ActSetDateForm
 
 
 @login_required
@@ -93,16 +93,16 @@ def accept_act(request, actid):
         return render(request, 'dispatcher/details/accept-detail.html')
 
 
-def set_date(request, actid):
+def set_date(request, pkey):
     if request.user.is_staff == 1:
         if request.method == 'GET':
-            queryset = Act.objects.filter(id=actid).values_list('do_until', flat=True).first()
+            queryset = Act.objects.filter(id=pkey).values_list('do_until', flat=True).first()
 
             form = ActSetDateForm()  # instance=queryset
-            return render(request, 'dispatcher/forms/date-form.html', {'form': form, 'act': actid, 'date': queryset})
+            return render(request, 'dispatcher/forms/date-form.html', {'form': form, 'act': pkey, 'date': queryset})
         if request.method == 'PUT':
             # optimize query
-            queryset = get_object_or_404(Act, id=actid)
+            queryset = get_object_or_404(Act, id=pkey)
             data = QueryDict(request.body).dict()
             form = ActSetDateForm(data, instance=queryset)
             if form.is_valid():

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+{% extends "../base.html" %}
+<html>
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+  <style>
+    #center {
+      width: 1700px;
+      height: 750px;
+      border: 5px solid #333;
+      border-top-width: 0px;
+      border-bottom-right-radius: 25px;
+      border-bottom-left-radius: 25px;
+      background-image: linear-gradient(rgb(255, 255, 255), rgb(255, 255, 255), rgb(255, 255, 255),rgb(255, 255, 255),rgb(255, 255, 255),rgb(173, 252, 166));
+    }
+    
+    .row{
+      margin-top: 20px;
+
+    }
+  </style>
+
+</head>
+    {% block content %}
+
+<!-- HTMX -->
+<script src="https://unpkg.com/htmx.org@1.6.1"></script>
+
+
+<!-- {% if request.user.type == "DISPATCHER" %} -->
+<!-- 
+<form hx-post="search" hx-target="#body" hx-swap="outerHTML">
+    {% csrf_token %}
+    <input class="form-control me-2" type="search" placeholder="Поиск" aria-label="Поиск" name="search">
+    <input class="btn btn-primary" type="submit" value="Найти"/>
+</form>  -->
+
+<br>
+
+<!-- <div>
+  <label >Сортировать по:</label>
+  <select name="make" hx-get="/models" hx-target="#models" hx-indicator=".htmx-indicator">
+    <option value="audi">Дате изменения заявки</option>
+    <option value="toyota">Дате создания заявки</option>
+  </select>
+</div> -->
+
+<br>
+<!-- 
+<div>
+  <label >Заявки:</label>
+  <select name="status" hx-get="status" hx-target="#body" hx-swap="outerHTML" hx-indicator=".htmx-indicator">
+    <option value="all">Все</option>
+    <option value="completed">Выполненные</option>
+    <option value="uncompleted">Не выполненные</option>
+    <option value="new">Новые</option>
+    <option value="expired">Просроченные</option>
+  </select>
+</div> -->
+
+
+{% endif %}
+
+
+ <hr>
+
+ <div id="body">
+
+<table id="profiles">
+  <thead>
+    <tr>
+      <th>Username</th>
+      <th>Email</th>
+      <th>date_joined</th>
+      <th>last_login</th>
+      <th>is_staff</th>
+      <th>type</th>
+      <th>Url</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for obj in page_obj %}
+    <tr>
+      <td>{{obj.username}}</td>
+      <td>{{obj.email}}</td>
+      <td>{{obj.date_joined}}</td>
+      <td>{{obj.last_login}}</td>
+      <td>{{obj.is_staff}}</td>
+      <td>{{obj.type}}</td>      
+      <td><a href="#">Редактировать профиль</a></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+
+
+
+
+{% if page_obj.has_previous %}
+<a href="?page=1">&laquo First</a>
+<a href="?page={{ page_obj.previous_page_number }}">Previous</a>
+{% endif %}
+
+Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+
+{% if page_obj.has_next %}
+<a href="?page={{ page_obj.next_page_number }}">next</a>
+<a href="?page={{ page_obj.paginator.num_pages }}">Last &raquo;</a>
+{% endif %}
+
+<div>
+
+  {% endblock %}
+
+  </body>
+
+</html>

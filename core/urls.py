@@ -21,5 +21,6 @@ urlpatterns = [
     path('accounts/', include(('accounts.urls', 'accounts'),  namespace='accounts')),
     path('acts/', include(('acts.urls', 'acts'))),
     path('', include(('main.urls', 'main'),  namespace='main')),
+    path('reports/', include(('reports.urls', 'reports'),  namespace='reports')),
     path('__debug__/', include('debug_toolbar.urls')),
 ]
