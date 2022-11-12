@@ -1,0 +1,10 @@
+<h3>Текущая дата: {{date}}</h3>
+
+<form hx-put="{% url 'acts:set-date' pkey=act_id %}" hx-targer="#date-detail">
+    {% csrf_token %}
+
+    {{form.as_ul}}
+
+    <input class="btn btn-primary" type="submit"/>
+
+</form> 

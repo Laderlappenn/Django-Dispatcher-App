@@ -86,13 +86,14 @@ def set_date(request, pkey):
             queryset = Act.objects.filter(id=pkey).values_list('do_until', flat=True).first()
 
             form = ActSetDateForm()  # instance=queryset
-            return render(request, 'dispatcher/forms/date-form.html', {'form': form, 'act': pkey, 'date': queryset})
+            return render(request, 'acts/forms/date-form.html', {'form': form, 'act_id': pkey, 'date': queryset})
         if request.method == 'PUT':
-            # optimize query
+            button_status = 'Дата выставлена'
+            # TODO optimize queries
             queryset = get_object_or_404(Act, id=pkey)
             data = QueryDict(request.body).dict()
             form = ActSetDateForm(data, instance=queryset)
             if form.is_valid():
                 form.save()
 
-        return render(request, 'dispatcher/details/accept-detail.html')
+            return render(request, 'acts/details/act-accept.html', {'button_title': button_status})
