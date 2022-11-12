@@ -12,4 +12,5 @@ urlpatterns = [
     path('<int:pkey>/edit/', views_htmx.act_edit_form, name='act-edit-form'),
     path('<int:pkey>/edit/save', views_htmx.act_edit),
     path('status/', views_htmx.act_status),
+    path('<int:pkey>/accept', views_htmx.accept_or_return_act, name='accept-or-return-act'),
 ]

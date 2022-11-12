@@ -80,19 +80,6 @@ def act_search(request):
             return render(request, 'acts/details/act-search.html', {'page_obj': page_obj, 'search': search})
 
 
-def return_act(request, actid):
-    if request.user.is_staff == 1:
-        Act.objects.filter(id=actid).update(act_processing='Заявка возвращена')
-
-        return render(request, 'dispatcher/details/return-detail.html')
-
-
-def accept_act(request, actid):
-    if request.user.is_staff == 1:
-        Act.objects.filter(id=actid).update(act_processing='Заявки принята')
-        return render(request, 'dispatcher/details/accept-detail.html')
-
-
 def set_date(request, pkey):
     if request.user.is_staff == 1:
         if request.method == 'GET':

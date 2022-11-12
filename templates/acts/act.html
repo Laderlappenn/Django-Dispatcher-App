@@ -6,8 +6,6 @@
   <meta charset="UTF-8">
   <title>Title</title>
 
-  <!-- HTMX -->
-  <script src="https://unpkg.com/htmx.org@1.6.1"></script>
 
 
 
@@ -16,6 +14,8 @@
 <body>
 
   {% block content %}
+
+
   act
   <br>
   <br>
@@ -25,14 +25,24 @@
     {% include 'acts/details/act-detail.html' %}
   </div>
 
-
+<br>
   {% if request.user.type == 'DISPATCHER' %}
-  <button hx-get="return" hx-target="this" hx-swap="outerHTML">
-    Вернуть заявку
-  </button>
-  <button hx-get="accept" hx-target="this" hx-swap="outerHTML">
-    Принять заявку
-  </button>
+  
+  <form hx-get="accept" hx-target="this" hx-swap="outerHTML">
+    <input type="hidden"
+           name="status"
+           value="return">
+    <input type="submit" 
+           value="Вернуть заявку">
+</form>
+
+<form hx-get="accept" hx-target="this" hx-swap="outerHTML">
+  <input type="hidden"
+         name="status"
+         value="accept">
+  <input type="submit" 
+         value="Принять заявку">
+</form>
 
   <br>
   <br>
@@ -45,7 +55,9 @@
 
   {% endif %}
 
-
+  <!-- HTMX -->
+  <script src="https://unpkg.com/htmx.org@1.6.1"></script>
+    
   <script>
     document.body.addEventListener('htmx:configRequest', (event) => {
       event.detail.headers['X-CSRFToken'] = '{{ csrf_token }}';
@@ -54,7 +66,6 @@
 
   </div>
   {% endblock %}
-
 
 
 </body>

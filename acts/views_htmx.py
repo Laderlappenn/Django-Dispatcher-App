@@ -55,3 +55,16 @@ def act_status(request):
         page_number = request.GET.get('page')
         page_obj = paginator.get_page(page_number)
         return render(request, 'acts/details/act-status.html', {'page_obj': page_obj, 'status': status})
+
+# change type of request?
+def accept_or_return_act(request, pkey):
+    if request.user.is_staff == 1:
+        status = request.GET.get('status')
+        if status == 'accept':
+            Act.objects.filter(id=pkey).update(act_processing='Заявки принята')
+            button_status = 'Заявка принята'
+        else:
+            Act.objects.filter(id=pkey).update(act_processing='Заявка возвращена')
+            button_status = 'Заявка возвращена'
+
+        return render(request, 'acts/details/act-accept.html', {'button_title': button_status})
