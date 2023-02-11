@@ -43,7 +43,9 @@ INSTALLED_APPS = [
     'main',
     'accounts',
     'acts',
-    'django_cleanup.apps.CleanupConfig',
+    'coordinator',
+    'rest_framework',
+    'django_cleanup.apps.CleanupConfig', # must be the latest
 ]
 
 MIDDLEWARE = [

@@ -22,5 +22,6 @@ urlpatterns = [
     path('acts/', include(('acts.urls', 'acts'))),
     path('', include(('main.urls', 'main'),  namespace='main')),
     path('reports/', include(('reports.urls', 'reports'),  namespace='reports')),
+    path('coordinations/', include(('coordinator.urls', 'cordinations'),  namespace='cordinations')),
     path('__debug__/', include('debug_toolbar.urls')),
 ]
