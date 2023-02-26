@@ -31,7 +31,7 @@ def create_act(request):
             user = request.user.id
             form.instance.user_id = user
             form.save()
-            return HttpResponseRedirect('http://127.0.0.1:8000/acts/create')
+            return HttpResponseRedirect('http://127.0.0.1:8000/acts/')
         else:
             return render(request, 'acts/create_post.html', {'form': form})
 

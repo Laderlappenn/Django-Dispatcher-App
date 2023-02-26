@@ -1,21 +1,25 @@
 <!DOCTYPE html>
+{% extends "../base.html" %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-          <script src="https://unpkg.com/htmx.org@1.8.5"></script>
+
 </head>
 <body>
 
-
-
+ {% block content %}
 
     <button hx-get="/coordinations/random_name/" hx-target="#target" hx-swap="outerHTML">
       Load Coordination
     </button>
+           <script src="https://unpkg.com/htmx.org@1.8.5"></script>
+
     <div id="target"></div>
 
+    {% endblock %}
 
 
 </body>
+
 </html>

@@ -4,6 +4,7 @@ from django.utils import timezone
 
 class Act(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    executer = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True, blank=True, related_name='acts_executer')
     # user = models.ManyToManyField(settings.AUTH_USER_MODEL)
     date_created = models.DateTimeField(default=timezone.now, editable=False)
     date_updated = models.DateTimeField(auto_now=True)

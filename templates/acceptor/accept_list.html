@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+
+ <div id="body">
+
+<table id="acts">
+  <thead>
+    <tr>
+      <th>User name</th>
+      <th>Title</th>
+      <th>Adress</th>
+      <th>Act type</th>
+      <th>Date created</th>
+      <th>Date updated</th>
+      <th>Url</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for obj in page_obj %}
+    <tr>
+      <td>{{obj.user}}</td>
+      <td>{{obj.title}}</td>
+      <td>{{obj.adress}}</td>
+      <td>{{obj.act_type}}</td>
+      <td>{{obj.date_created}}</td>
+      <td>{{obj.date_updated}}</td>
+      <td><a href="http://127.0.0.1:8000/acts/{{obj.id}}">Смотреть заявку</a></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+
+
+</body>
+</html>

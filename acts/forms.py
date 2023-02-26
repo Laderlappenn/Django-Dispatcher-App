@@ -17,7 +17,7 @@ class ActForm(ModelForm):
     class Meta:
         model = Act
         fields = '__all__'
-        exclude = ('act_processing', 'do_until', 'user')
+        exclude = ('act_processing', 'do_until', 'user', 'executer')
 
 
 class ActSetDateForm(ModelForm):

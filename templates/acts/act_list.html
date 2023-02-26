@@ -84,6 +84,10 @@
       <th>Date created</th>
       <th>Date updated</th>
       <th>Url</th>
+      {% if request.user.type == 'DISPATCHER' %}
+      <th>Accept</th>
+      {% else %}
+      {% endif %}
     </tr>
   </thead>
   <tbody>
@@ -96,9 +100,19 @@
       <td>{{obj.date_created}}</td>
       <td>{{obj.date_updated}}</td>      
       <td><a href="http://127.0.0.1:8000/acts/{{obj.id}}">Смотреть заявку</a></td>
+      <td>
+      {% if request.user.type == 'DISPATCHER' %}
+      <button hx-get="{% url 'acceptions:accept' pkey=obj.id %}"  hx-target="this" hx-swap="outerHTML" style="background-color: green; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">Accept</button>
+
+      {% else %}
+      {% endif %}
+       </td>
+
     </tr>
     {% endfor %}
   </tbody>
+  <script src="https://unpkg.com/htmx.org@1.6.1"></script>
+
 </table>
 
 
@@ -115,7 +129,7 @@ Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
 <a href="?page={{ page_obj.paginator.num_pages }}">Last &raquo;</a>
 {% endif %}
 
-<div>
+
 
   {% endblock %}
 
